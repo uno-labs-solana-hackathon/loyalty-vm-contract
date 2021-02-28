@@ -7,7 +7,7 @@
 - __Program__ -- A loyalty program on-chain of the Colophony on Solana's blockchain. It is owner of accounts of `clients`.
 - __Retail network__
 	- _Payer_ -- An account which pay a fee for the `program` that executes on clockchain. This account's public key is embedded in the `program`.
-	- _Blocker_ -- A special account which can block an account of `client`. The `blocker's` account public key is embedded in the `program` too.
+	- _Blocker_ -- A special account for internal security which can block an account of `client`. The `blocker's` account public key is embedded in the `program` too. 
 	- _Client_ -- An account produced by the loyalty program of the Colophony. It may be produced only by the account of the `Payer` of the Retail network.
 - __Client payer__ -- A Solana's builtin System program account to pay a fee transaction between two `clients`.
 
