@@ -1,21 +1,22 @@
-# Colophony BPF program
+# Colophony Loyalty BPF program
 
 #### __Solana on-chain program__
 
-## Terms
+## Accounts
 
-- Retail
-- Blocker
-- Program -- owner of accounts of `clients`
-- Clients -- account on the Solana blockchan
-
+- __Program__ -- The Colophony Loyalty program a Solana's on-chain. It is owner of accounts of `clients`.
+- __Retail network__
+	- _Payer_ -- An account which pay a fee running an on-chain `program`. This account registered in `program`.
+	- _Blocker_ -- A special account which can blocking an account of `client`.
+- __Client__ -- An account produced by the Colophony Loyalty program. May be produced by an account of `Payer` of a Retail network only.
+- __Client payer__ -- A Solana's account for pay a fee transaction between two `clients`.
 
 ## Commands
 
-- **EMIT** -- points emission by the account of `retail`
-- **SPEND** -- withdrawing points from an account of `client` 
-- **TRANSFER** -- transfer of points between two accounts of `clients`
-- **BLOCK** -- blocking an account of `client`
+- __EMIT__ -- points emission by the account of `retail`
+- __SPEND__ -- withdrawing points from an account of `client` 
+- __TRANSFER__ -- transfer of points between two accounts of `clients`
+- __BLOCK__ -- blocking an account of `client`
 
 ## Rules
 
