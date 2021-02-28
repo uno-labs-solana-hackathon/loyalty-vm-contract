@@ -13,20 +13,20 @@
 
 ## Commands
 
-- __EMIT__ -- points emission by the account of `retail`
-- __SPEND__ -- withdrawing points from an account of `client` 
+- __EMIT__ -- points emission to an account of `client`
+- __SPEND__ -- withdrawing points from an account of `client`
 - __TRANSFER__ -- transfer of points between two accounts of `clients`
 - __BLOCK__ -- blocking an account of `client`
 
 ## Rules
 
-1. Only the `Payer` of _the Retail network_ can provide emission and withdrawing points transactions.
-   `EMIT` and `SPEND` commands are possible only with the `Payer` signature.
+1. Only the `payer` of _the Retail network_ can provide emission and withdrawing points transactions.
+   `EMIT` and `SPEND` commands are possible only with the `payer` signature.
    (Attempts to signature such transaction by another account will result an error.)
-2. Only the `Blocker` of _the Retail network_ can provide blocking account of a `Client`.
-   `LOCK` command is possible only with signature of special account -- the `Blocker`.
-   If account of a `Client` is marked as locked then `EMIT` and `SPEND` commands for it are unavailable.
-3. Anyone can pay for transferring points between `Clients`. For example it may be the `Client payer`.
+2. Only the `blocker` of _the Retail network_ can provide blocking account of a `client`.
+   `LOCK` command is possible only with signature of special account -- the `blocker`.
+   If account of a `client` is marked as locked then `EMIT` and `SPEND` commands for it are unavailable.
+3. Anyone can pay for transferring points between `clients`. For example it may be the `Client payer`.
    Transfering points are available only between accounts of the program.
 
 ## Structure of incoming data
