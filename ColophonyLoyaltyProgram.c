@@ -9,8 +9,8 @@
 #define TO_BUILTIN_CUSTOM(error) ((uint64_t)(error))
 /** Permission to perform an operation was denied */
 #define ERROR_PERMISSION_DENIED         TO_BUILTIN_CUSTOM(1)
-/** Client's account is blocked */
-#define ERROR_ACCOUNT_LOCKED            TO_BUILTIN_CUSTOM(2)
+/** Client's account is frozen */
+#define ERROR_ACCOUNT_FROZEN            TO_BUILTIN_CUSTOM(2)
 /** Client insufficient funds */
 #define ERROR_CLIENT_INSUFFICIENT_FUNDS TO_BUILTIN_CUSTOM(3)
 /** Client's account storage capacity limit reached */
@@ -29,7 +29,7 @@
 // Commands
 #define EMIT     0x0 // The retail emit points to a client
 #define SPEND    0x1 // The retail spend points to a client 
-#define BLOCK    0x2 // The retail block an account of client
+#define FREEZ    0x2 // The retail freeze an account of client
 #define TRANSFER 0x3 // A client transfer their points to another client
 
 /**
@@ -39,7 +39,7 @@ typedef union
 {
   struct 
   {
-    uint8_t   isBlocked : 1;
+    uint8_t   isFrozen  : 1;
     uint32_t  value     : 31;
   };
   uint32_t    raw;
@@ -80,11 +80,11 @@ static const SolPubkey BLOCKER_PUBLICK_KEY = (SolPubkey){.x = {27,   2, 220,  22
 static uint64_t checkClient(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const, const SolPubkey *const);
 static uint64_t emit(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
 static uint64_t spend(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
-static uint64_t block(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
+static uint64_t freez(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
 static uint64_t transfer(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
 
 typedef uint64_t (*CommandsArray)(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
-static CommandsArray operations[4] = {&emit, &spend, &block, &transfer};
+static CommandsArray operations[4] = {&emit, &spend, &freez, &transfer};
 
 /** */
 uint64_t ColophonyLoyalty(SolParameters *params)
@@ -157,10 +157,10 @@ static uint64_t checkClient(      LoyaltyAccountInfo      *const account,
   }
 
   account->data = (LoyaltyAccountData *)_account->data;
-  if (account->data->isBlocked && instructionData->cmd != BLOCK)
+  if (account->data->isFrozen && instructionData->cmd != FREEZ)
   {
-    sol_log("The client's account is locked");
-    return ERROR_ACCOUNT_LOCKED;
+    sol_log("The client's account is frozen");
+    return ERROR_ACCOUNT_FROZEN;
   }
 
   return SUCCESS;
@@ -255,17 +255,17 @@ static uint64_t spend(      LoyaltyAccountInfo *const accounts,
 }
 
 /**
- * Blocking a client's account.
+ * Freeze a client's account.
  * It can possible only with signature of special account -- Blocker.
  * 
  * @param accounts  Pointer to an array of LoyaltyAccountInfo
  * @param instructionData Pointer to a LoyaltyInstructionData union
  * @return Error number if unsuccessful, else 0
  */
-static uint64_t block(      LoyaltyAccountInfo *const accounts, 
+static uint64_t freez(      LoyaltyAccountInfo *const accounts, 
                       const LoyaltyInstructionData *const instructionData)
 {
-  sol_log("#ColophonyLoyalty::BLOCK");
+  sol_log("#ColophonyLoyalty::FREEZ");
   const LoyaltyAccountInfo * client = &accounts[0];
   const SolAccountInfo *const blocker = accounts[1].ka;
 
@@ -282,7 +282,7 @@ static uint64_t block(      LoyaltyAccountInfo *const accounts,
     return ERROR_TRANSACTION_NOT_SIGNED;
   }
   
-  client->data->isBlocked = (instructionData->payload & 0x1);
+  client->data->isFrozen = (instructionData->payload & 0x1);
 
   return SUCCESS;
 }
