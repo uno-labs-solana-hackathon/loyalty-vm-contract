@@ -84,7 +84,7 @@ static uint64_t freez(LoyaltyAccountInfo *const, const LoyaltyInstructionData *c
 static uint64_t transfer(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
 
 typedef uint64_t (*CommandsArray)(LoyaltyAccountInfo *const, const LoyaltyInstructionData *const);
-static CommandsArray operations[4] = {&emit, &spend, &freez, &transfer};
+static CommandsArray commands[4] = {&emit, &spend, &freez, &transfer};
 
 /** */
 uint64_t ColophonyLoyalty(SolParameters *params)
@@ -118,7 +118,7 @@ uint64_t ColophonyLoyalty(SolParameters *params)
     return errno;
   }
 
-  return operations[instructionData->cmd](accounts, instructionData);
+  return commands[instructionData->cmd](accounts, instructionData);
 }
 
 /**
