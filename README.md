@@ -42,3 +42,20 @@ Incoming data (`uint32_t`) include one `command` (two low-order bits) and payloa
 ## Structure of account value
 
 The account data are type of `uint32_t` where one low-order bit is the flag of blocking and others bits are values of the points.
+
+-------------------------
+
+# Try it
+
+Private keys of embedded accounts
+
+`Payer` of the retail network (hex)
+```
+fdef36460313dcc552a7633cdd4343d5a1565aa96035c5db3e12cf1ee15939c34bdc865517f96f53a66c4ce9be7ffc06fd09f25a147348d6b34a855f78935c34
+```
+
+`Blocker` of the retail network (hex)
+
+```
+fdef36460313dcc552a7633cdd4343d5a1565aa96035c5db3e12cf1ee15939c34bdc865517f96f53a66c4ce9be7ffc06fd09f25a147348d6b34a855f78935c34
+```
