@@ -47,15 +47,15 @@ The account data are type of `uint32_t` where one low-order bit is the flag of b
 
 # Try it
 
-Private keys of embedded accounts
+>__We deliberately publish `PRIVATE` account keys, which are now embedded in a smart contract, so that everyone can use the program without recompiling it.__
 
-`Payer` of the retail network (hex)
+`Payer` of the retail network
 ```
-fdef36460313dcc552a7633cdd4343d5a1565aa96035c5db3e12cf1ee15939c34bdc865517f96f53a66c4ce9be7ffc06fd09f25a147348d6b34a855f78935c34
+0xfdef36460313dcc552a7633cdd4343d5a1565aa96035c5db3e12cf1ee15939c34bdc865517f96f53a66c4ce9be7ffc06fd09f25a147348d6b34a855f78935c34
 ```
 
-`Blocker` of the retail network (hex)
+`Blocker` of the retail network
 
 ```
-fdef36460313dcc552a7633cdd4343d5a1565aa96035c5db3e12cf1ee15939c34bdc865517f96f53a66c4ce9be7ffc06fd09f25a147348d6b34a855f78935c34
+0xfdef36460313dcc552a7633cdd4343d5a1565aa96035c5db3e12cf1ee15939c34bdc865517f96f53a66c4ce9be7ffc06fd09f25a147348d6b34a855f78935c34
 ```
