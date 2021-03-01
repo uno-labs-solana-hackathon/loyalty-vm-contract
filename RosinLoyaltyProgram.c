@@ -1,5 +1,5 @@
 /**
- * @brief Colophony BPF program
+ * @brief Rosin Loyalty BPF program
  */
 #include <solana_sdk.h>
 
@@ -23,7 +23,7 @@
 // Max number of points of client
 #define MAX_NUM_OF_POINTS (2147483647U)
 
-// Total number of account needed for work the Colophony BPF program
+// Total number of account needed for work the Rosin BPF program
 #define TOTAL_ACCOUNTS 0x2
 
 // Commands
@@ -87,17 +87,17 @@ typedef uint64_t (*CommandsArray)(LoyaltyAccountInfo *const, const LoyaltyInstru
 static CommandsArray commands[4] = {&emit, &spend, &freez, &transfer};
 
 /** */
-uint64_t ColophonyLoyalty(SolParameters *params)
+uint64_t RosinLoyalty(SolParameters *params)
 {
   if (params->ka_num < TOTAL_ACCOUNTS)
 	{
-    sol_log("#ColophonyLoyalty::Accounts not included in the instruction");
+    sol_log("#RosinLoyalty::Accounts not included in the instruction");
     return ERROR_NOT_ENOUGH_ACCOUNT_KEYS;
   }
 
   // Interpretation incoming instruction data to the LoyaltyInstructionData union
   const LoyaltyInstructionData *instructionData = (LoyaltyInstructionData *)params->data;
-  sol_log("#ColophonyLoyalty::CMD, PAYLOAD"); sol_log_64(instructionData->cmd, instructionData->payload, 0, 0, 0);
+  sol_log("#RosinLoyalty::CMD, PAYLOAD"); sol_log_64(instructionData->cmd, instructionData->payload, 0, 0, 0);
 
   // Get accounts
   LoyaltyAccountInfo *const accounts = (LoyaltyAccountInfo *)sol_calloc(TOTAL_ACCOUNTS, sizeof(LoyaltyAccountInfo));
@@ -105,13 +105,13 @@ uint64_t ColophonyLoyalty(SolParameters *params)
   accounts[1].ka = &params->ka[1];
   
   uint64_t errno = 0;
-  sol_log("#ColophonyLoyalty::Check account 1");
+  sol_log("#RosinLoyalty::Check account 1");
   if ((errno = checkClient(&accounts[0], instructionData, params->program_id)))
   {
     return errno;
   }
   
-  sol_log("#ColophonyLoyalty::Check account 2");
+  sol_log("#RosinLoyalty::Check account 2");
   if (instructionData->cmd == TRANSFER &&
      (errno = checkClient(&accounts[1], instructionData, params->program_id)))
   {
@@ -297,7 +297,7 @@ static uint64_t freez(      LoyaltyAccountInfo *const accounts,
 static uint64_t transfer(     LoyaltyAccountInfo *const accounts,
                         const LoyaltyInstructionData *const instructionData)
 {
-  sol_log("#ColophonyLoyalty::TRANSFER");
+  sol_log("#RosinLoyalty::TRANSFER");
   const LoyaltyAccountInfo * sender = &accounts[0];
   const LoyaltyAccountInfo * recipient = &accounts[1];
 
@@ -321,7 +321,7 @@ static uint64_t transfer(     LoyaltyAccountInfo *const accounts,
 
 extern uint64_t entrypoint(const uint8_t *input)
 {
-  sol_log("#UnoLabs::ColophonyLoyalty program entrypoint");
+  sol_log("#UnoLabs::RosinLoyalty program entrypoint");
 
   SolAccountInfo accounts[2];
   SolParameters params = (SolParameters){.ka = accounts};
@@ -331,5 +331,5 @@ extern uint64_t entrypoint(const uint8_t *input)
     return ERROR_INVALID_ARGUMENT;
   }
 
-  return ColophonyLoyalty(&params);
+  return RosinLoyalty(&params);
 }
