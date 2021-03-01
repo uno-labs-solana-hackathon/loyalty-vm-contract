@@ -1,4 +1,4 @@
-# Colophony Loyalty
+# Rosin Loyalty
 
 #### __Solana on-chain program (smart contract)__
 
@@ -10,11 +10,11 @@ The smart contract does not define the rules for the emission/withdrawing of poi
 
 ## Accounts
 
-- __Program__ -- An executable account of loyalty program on-chain of the Colophony on Solana's blockchain. It is owner of accounts of `clients`.
+- __Program__ -- An executable account of loyalty program on-chain of the Rosin on Solana's blockchain. It is owner of accounts of `clients`.
 - __Retail network__
 	- _Payer_ -- An account which pay a fee for the `program` that executes on blockchain. This account's public key is embedded in the `program`.
 	- _Blocker_ -- A special account for internal security which can freeze an account of `client`. The `blocker's` account public key is embedded in the `program` too. 
-	- _Client_ -- An account produced by the loyalty program of the Colophony. It may be produced only by the account of the `Payer` of the Retail network.
+	- _Client_ -- An account produced by the loyalty program of the Rosin. It may be produced only by the account of the `Payer` of the Retail network.
 - __Client payer__ -- A Solana's builtin System program account to pay a fee transaction between two `clients`.
 
 ## Commands
