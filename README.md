@@ -57,5 +57,5 @@ The account data are type of `uint32_t` where one low-order bit is the flag of b
 `Blocker` of the retail network
 
 ```
-424a6ecbd8d377ea280358f3e48f2e1e823994e3e71f194b3fa2cf2fe36bc7611b02dc16834ede2fe16b66ec2b0fab8ca5a410c62c49401f4cdfc7a7410bf3f6
+0x424a6ecbd8d377ea280358f3e48f2e1e823994e3e71f194b3fa2cf2fe36bc7611b02dc16834ede2fe16b66ec2b0fab8ca5a410c62c49401f4cdfc7a7410bf3f6
 ```
