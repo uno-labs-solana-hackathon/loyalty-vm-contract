@@ -45,7 +45,7 @@ The account data are type of `uint32_t` where one low-order bit is the flag of b
 
 -------------------------
 
-# Try it out
+# Try it in action
 
 >__We deliberately publish `PRIVATE` account keys, which are now embedded in a smart contract, so that everyone can use the program without recompiling it.__
 
